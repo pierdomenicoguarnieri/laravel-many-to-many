@@ -6,8 +6,10 @@
 
 @section('content')
 <div class="container py-4">
-  <h2 class="fs-4 text-secondary mb-4">
+  <h2 class="fs-4 text-secondary mb-4 d-inline">
     Show "{{$project->title}}"
+  </h2>
+  <div class="d-inline">
     <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-warning ms-2" title="Edit"><i class="fa-solid fa-pencil"></i></a>
     @include('admin.partials.modal', [
       'name' => $project->title,
@@ -15,9 +17,11 @@
       'route' => route('admin.projects.destroy', $project),
       'type' => 'progetto'
     ])
-  </h2>
+  </div>
 
-  <a href="{{route('admin.projects.index')}}" class="btn btn-primary mb-4">Torna all'index</a>
+  <div class="mt-4">
+    <a href="{{route('admin.projects.index')}}" class="btn btn-primary mb-4">Torna all'index</a>
+  </div>
 
   <div class="pg-table-wrapper rounded-2 border border-1 overflow-hidden shadow-sm">
     <table class="table m-0">

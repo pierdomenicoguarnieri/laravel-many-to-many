@@ -17,7 +17,6 @@ class Project extends Model
     'slug',
     'start_date',
     'end_date',
-    'used_languages',
     'commits',
     'finished',
     'image_path',

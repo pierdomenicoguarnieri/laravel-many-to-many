@@ -9,8 +9,8 @@
         <h5 class="modal-title">Attenzione!</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p>Vuoi eliminare il {{$type}}: "{{$name}}"</p>
+      <div class="modal-body text-start">
+        <p>Vuoi eliminare il {{$type}}: "{{$name}}"?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
