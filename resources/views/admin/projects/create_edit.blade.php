@@ -107,14 +107,21 @@
     </div>
 
     <div class="mb-3">
-      <label for="used_languages" class="form-label">Linguaggi usati</label>
-      <input
-        type="text"
-        class="form-control @error('used_languages') is-invalid @enderror"
-        placeholder="PHP|Laravel|JavaScript"
-        name="used_languages"
-        value="{{old('used_languages', $project?->used_languages)}}">
-        @error('used_languages')
+      <p for="category_id" class="form-title">Linguaggi Usati</p>
+      <div class="btn-group" role="group">
+
+        @foreach ($technologies as $technology)
+          <input type="checkbox" class="btn-check" id="technology{{$loop->iteration}}" autocomplete="off" value="{{$technology->id}}" name="technologies[]"
+          @if(!$errors->any() && $project?->technologies?->contains($technology))
+            checked
+          @elseif($errors->any() && in_array($technology->id, old('technologies', [])))
+            checked
+          @endif>
+          <label class="btn btn-outline-secondary" for="technology{{$loop->iteration}}">{{$technology->name}}</label>
+        @endforeach
+
+      </div>
+        @error('technologies')
           <span class="text-danger">{{$message}}</span>
         @enderror
     </div>
@@ -123,7 +130,7 @@
       <label for="commits" class="form-label">Commits</label>
       <input
         type="number"
-        class="form-control"
+        class="form-control @error('commits') is-invalid @enderror"
         placeholder="0"
         name="commits"
         value="{{old('commits', $project?->commits)}}">
@@ -136,8 +143,8 @@
       <label for="finished" class="form-label">Stato del progetto</label>
       <select class="form-select @error('finished') is-invalid @enderror" id="finished" name="finished">
         <option selected>Scegli una opzione</option>
-        <option value="1">Terminato</option>
-        <option value="0">Non Terminato</option>
+        <option value="1" @if($project->finished) selected @endif>Terminato</option>
+        <option value="0" @if(!$project->finished) selected @endif>Non Terminato</option>
       </select>
       @error('finished')
         <span class="text-danger">{{$message}}</span>

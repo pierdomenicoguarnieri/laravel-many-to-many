@@ -30,7 +30,7 @@ class ProjectRequest extends FormRequest
       'description' => 'nullable|min:20',
       'start_date' => 'required|date_format:Y-m-d|date',
       'end_date' => 'nullable|date_format:Y-m-d|date',
-      'used_languages' => 'required|min:3|max:255',
+      'technologies' => 'nullable',
       'commits' => 'numeric|min:0|max:255',
       'finished' => 'required|boolean',
     ];
@@ -49,9 +49,6 @@ class ProjectRequest extends FormRequest
       'start_date.date_format' => 'La data d\'inizio progetto deve avere un formato valido (YYYY-MM-DD)',
       'end_date.date' => 'La data di fine progetto non è valida',
       'end_date.date_format' => 'La data di fine progetto deve avere un formato valido (YYYY-MM-DD)',
-      'used_languages.required' => 'I linguaggi utilizzati sono obbligatori',
-      'used_languages.min' => 'I linguaggi utilizzati devono avere almeno :min caratteri',
-      'used_languages.max' => 'I linguaggi utilizzati devono avere al massimo :max caratteri',
       'commits.numeric' => 'I commit devono essere un numero',
       'commits.min' => 'I commit devono avere un valore minimo di :min',
       'commits.max' => 'I commit devono avere un valore massimo di :max',

@@ -41,7 +41,8 @@ class ProjectController extends Controller
       $msg_button = 'Crea';
       $project = null;
       $types = Type::all();
-      return view('admin.projects.create_edit', compact('route', 'method', 'title','msg_button', 'project', 'types'));
+      $technologies = Technology::all();
+      return view('admin.projects.create_edit', compact('route', 'method', 'title','msg_button', 'project', 'types', 'technologies'));
     }
 
     /**
@@ -65,6 +66,11 @@ class ProjectController extends Controller
       $new_project->fill($form_data);
 
       $new_project->save();
+
+      if(array_key_exists('technologies', $form_data)){
+        // Attacco al post appena creato l'array dei tags proveniente dal form
+        $new_project->technologies()->attach($form_data['technologies']);
+      }
 
       return redirect()->route('admin.projects.show', $new_project);
     }
@@ -91,7 +97,8 @@ class ProjectController extends Controller
       $msg_button = 'Modifica';
       $title = 'Modifica il progetto: "' . $project->title . '"';
       $types = Type::all();
-      return view('admin.projects.create_edit', compact('route', 'method', 'title', 'msg_button', 'project', 'types'));
+      $technologies = Technology::all();
+      return view('admin.projects.create_edit', compact('route', 'method', 'title', 'msg_button', 'project', 'types', 'technologies'));
     }
 
     /**
@@ -114,6 +121,13 @@ class ProjectController extends Controller
       if(array_key_exists('image', $form_data)){
         $form_data['image_path'] = Storage::put('uploads', $form_data['image']);
         $form_data['image_original_name'] = $request->file('image')->getClientOriginalName();
+      }else{
+        $project->technologies()->detach();
+      }
+
+      if(array_key_exists('technologies', $form_data)){
+        // Attacco al post appena creato l'array dei tags proveniente dal form
+        $project->technologies()->attach($form_data['technologies']);
       }
 
       $project->update($form_data);
