@@ -12,7 +12,7 @@
       Gestione Tecnologie
     </h2>
 
-    <div class="pgtable-wrapper">
+    <div class="pg-table-container">
       <form action="{{route('admin.technologies.store')}}" method="POST">
         @csrf
         <div class="input-group mb-3">
@@ -21,38 +21,40 @@
         </div>
       </form>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Numero di Progetti</th>
-            <th scope="col" class="text-center">Azioni</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($technologies as $technology)
-          <tr>
-            <th scope="row">
-              <form action="{{route('admin.technologies.update', $technology)}}" method="POST" id="edit_form{{$technology->id}}">
-                @csrf
-                @method('PUT')
-                <input technology="text" class="form-control border-0" name="name" value="{{$technology->name}}">
-              </form>
-            </th>
-            <td>{{count($technology->projects)}}</td>
-            <td class="text-center">
-              <button onclick="submitEditForm({{$technology->id}})" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" title="Edit"></i></button>
-              @include('admin.partials.modal', [
-                'name' => $technology->name,
-                'id' => $technology->id,
-                'route' => route('admin.technologies.destroy', $technology),
-                'type' => 'tecnologia'
-              ])
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+      <div class="pg-table-wrapper rounded-2 border border-1 overflow-hidden shadow-sm mb-4">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Numero di Progetti</th>
+              <th scope="col" class="text-center">Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($technologies as $technology)
+            <tr>
+              <th scope="row">
+                <form action="{{route('admin.technologies.update', $technology)}}" method="POST" id="edit_form{{$technology->id}}">
+                  @csrf
+                  @method('PUT')
+                  <input technology="text" class="form-control border-0" name="name" value="{{$technology->name}}">
+                </form>
+              </th>
+              <td>{{count($technology->projects)}}</td>
+              <td class="text-center">
+                <button onclick="submitEditForm({{$technology->id}})" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" title="Edit"></i></button>
+                @include('admin.partials.modal', [
+                  'name' => $technology->name,
+                  'id' => $technology->id,
+                  'route' => route('admin.technologies.destroy', $technology),
+                  'type' => 'tecnologia'
+                ])
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

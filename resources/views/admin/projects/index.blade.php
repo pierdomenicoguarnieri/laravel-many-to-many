@@ -17,7 +17,7 @@
     @endif
 
   <div class="pg-table-wrapper rounded-2 border border-1 overflow-hidden shadow-sm mb-4">
-    <table class="table m-0">
+    <table class="table mb-0">
       <thead>
         <tr>
           <th scope="col" class="text-center">

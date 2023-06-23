@@ -12,7 +12,7 @@
       Gestione Tipi
     </h2>
 
-    <div class="pgtable-wrapper">
+    <div class="pg-table-container">
       <form action="{{route('admin.types.store')}}" method="POST">
         @csrf
         <div class="input-group mb-3">
@@ -21,38 +21,40 @@
         </div>
       </form>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Numero di Progetti</th>
-            <th scope="col" class="text-center">Azioni</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($types as $type)
-          <tr>
-            <th scope="row">
-              <form action="{{route('admin.types.update', $type)}}" method="POST" id="edit_form{{$type->id}}">
-                @csrf
-                @method('PUT')
-                <input type="text" class="form-control border-0" name="name" value="{{$type->name}}">
-              </form>
-            </th>
-            <td>{{count($type->projects)}}</td>
-            <td class="text-center">
-              <button onclick="submitEditForm({{$type->id}})" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" title="Edit"></i></button>
-              @include('admin.partials.modal', [
-                'name' => $type->name,
-                'id' => $type->id,
-                'route' => route('admin.types.destroy', $type),
-                'type' => 'tipo'
-              ])
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+      <div class="pg-table-wrapper rounded-2 border border-1 overflow-hidden shadow-sm mb-4">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Numero di Progetti</th>
+              <th scope="col" class="text-center">Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($types as $type)
+            <tr>
+              <th scope="row">
+                <form action="{{route('admin.types.update', $type)}}" method="POST" id="edit_form{{$type->id}}">
+                  @csrf
+                  @method('PUT')
+                  <input type="text" class="form-control border-0" name="name" value="{{$type->name}}">
+                </form>
+              </th>
+              <td>{{count($type->projects)}}</td>
+              <td class="text-center">
+                <button onclick="submitEditForm({{$type->id}})" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" title="Edit"></i></button>
+                @include('admin.partials.modal', [
+                  'name' => $type->name,
+                  'id' => $type->id,
+                  'route' => route('admin.types.destroy', $type),
+                  'type' => 'tipo'
+                ])
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
