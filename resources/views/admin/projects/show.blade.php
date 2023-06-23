@@ -59,11 +59,11 @@
         <tr>
           <th scope="row" class="w-25 border border-end">Linguaggi usati</th>
           <td>
-            <ul>
-              @foreach (explode("|", $project->used_languages) as $language)
-                <li>{{$language}}</li>
-              @endforeach
-            </ul>
+            @forelse ($project->technologies as $technology)
+            <span class="badge text-bg-warning">{{$technology->name}}</span>
+            @empty
+            <span class="badge text-bg-danger">No Technologies</span>
+            @endforelse
           </td>
         </tr>
         <tr>

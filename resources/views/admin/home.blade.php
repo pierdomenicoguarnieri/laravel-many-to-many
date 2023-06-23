@@ -42,8 +42,8 @@
                 <tr>
                   <th scope="col" class="text-center">#ID</th>
                   <th scope="col">Title</th>
-                  <th scope="col">Start Date</th>
-                  <th scope="col">End Date</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Technologies</th>
                   <th scope="col" class="text-center">Finished</th>
                   <th scope="col" class="text-center">Actions</th>
                 </tr>
@@ -53,21 +53,13 @@
                 <tr>
                   <th scope="row" class="text-center">{{$project->id}}</th>
                   <td>{{$project->title}}</td>
+                  <td><span class="badge text-bg-primary">{{$project->type?->name}}</span></td>
                   <td>
-                    @php
-                      $date = date_create($project->start_date);
-                      echo date_format($date, 'd/m/Y');
-                    @endphp
-                  </td>
-                  <td>
-                    @if ($project->end_date)
-                      @php
-                        $date = date_create($project->end_date);
-                        echo date_format($date, 'd/m/Y');
-                      @endphp
-                    @else
-                      <span class="text-danger">No date</span>
-                    @endif
+                    @forelse ($project->technologies as $technology)
+                    <span class="badge text-bg-warning">{{$technology->name}}</span>
+                    @empty
+                    <span class="badge text-bg-danger">No Technologies</span>
+                    @endforelse
                   </td>
                   <td class="text-center">
                     @if ($project->finished)
